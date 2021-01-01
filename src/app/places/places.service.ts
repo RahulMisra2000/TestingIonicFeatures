@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { take, map, tap, delay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { take, map, tap, delay, filter } from 'rxjs/operators';
 
 import { Place } from './place.model';
 import { AuthService } from '../auth/auth.service';
@@ -39,7 +39,29 @@ export class PlacesService {
       new Date('2019-01-01'),
       new Date('2019-12-31'),
       'abc'
+    ),
+    new Place(
+      'p4',
+      'Boca Raton',
+      'Resort area!',
+      'https://upload.wikimedia.org/wikipedia/commons/5/54/Mizner_Park.jpg',
+      199.99,
+      new Date('2020-12-25'),
+      new Date('2021-12-31'),
+      'xyz'
+    ),
+    new Place(
+      'p5',
+      'New Delhi',
+      'Happening place!',
+      'https://upload.wikimedia.org/wikipedia/commons/c/c2/New_Delhi_Temple.jpg',
+      299.99,
+      new Date('2020-12-25'),
+      new Date('2021-12-31'),
+      'xyz'
     )
+    
+
   ]);
 
   get places() {
@@ -48,7 +70,7 @@ export class PlacesService {
 
   constructor(private authService: AuthService) {}
 
-  getPlace(id: string) {
+  getPlace(id: string):Observable<Place> {
     return this.places.pipe(
       take(1),
       map(places => {
@@ -56,6 +78,7 @@ export class PlacesService {
       })
     );
   }
+
 
   addPlace(
     title: string,
@@ -83,7 +106,26 @@ export class PlacesService {
     );
   }
 
-  updatePlace(placeId: string, title: string, description: string) {
+
+  updatePlace(id: string, title:string, description: string){
+    
+    return this.places.pipe(
+      take(1),
+      delay(1000),
+      tap(places => {
+        let placeToUpdate = places.find(p => p.id === id);
+        placeToUpdate.title = "RM:" + title;
+        placeToUpdate.description = description;
+
+        places.splice(places.findIndex((v,i,a) => { v.id===id}), 1 , placeToUpdate);
+
+        this._places.next([...places]);
+      })
+    );
+
+  }
+
+  updatePlaceOld(placeId: string, title: string, description: string) {
     return this.places.pipe(
       take(1),
       delay(1000),

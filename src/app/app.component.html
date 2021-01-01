@@ -12,6 +12,11 @@
       <ion-list>
         <ion-menu-toggle>
           <ion-item lines="none" routerLink="/places/tabs/discover">
+            <ion-label *ngIf="onlineChanges$ | async; else haha"> YES   </ion-label>
+            <ng-template #haha>
+              <ion-label>NO</ion-label>
+            </ng-template>
+
             <ion-icon name="business" slot="start"></ion-icon>
             <ion-label>Discover Places</ion-label>
           </ion-item>

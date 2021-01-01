@@ -12,6 +12,8 @@ import { PlacesService } from '../../places.service';
 import { Place } from '../../place.model';
 import { CreateBookingComponent } from '../../../bookings/create-booking/create-booking.component';
 import { BookingService } from '../../../bookings/booking.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-place-detail',
@@ -29,7 +31,9 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
     private modalCtrl: ModalController,
     private actionSheetCtrl: ActionSheetController,
     private bookingService: BookingService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    public authService : AuthService,
+    private titleService : Title
   ) {}
 
   ngOnInit() {
@@ -44,6 +48,8 @@ export class PlaceDetailPage implements OnInit, OnDestroy {
           this.place = place;
         });
     });
+
+    this.titleService.setTitle('Place Detail');
   }
 
   onBookPlace() {

@@ -17,7 +17,7 @@ export class BookingsPage implements OnInit, OnDestroy {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit() {
-    this.bookingService.bookings.subscribe(bookings => {
+    this.bookingService.bookings$.subscribe(bookings => {
       this.loadedBookings = bookings;
     });
   }
@@ -25,6 +25,11 @@ export class BookingsPage implements OnInit, OnDestroy {
   onCancelBooking(offerId: string, slidingEl: IonItemSliding) {
     slidingEl.close();
     // cancel booking wiht id offerId
+    this.bookingService.cancelBooking(offerId).subscribe(
+      bkngs => {
+          console.log("bookings left", bkngs);
+      }
+    )
   }
 
   ngOnDestroy() {
