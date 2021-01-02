@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'bookings',
     loadChildren: () => import('./bookings/bookings.module').then(m => m.BookingsPageModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: 'testing-menu',
+    loadChildren: () => import('./testing-menu/testing-menu.module').then( m => m.TestingMenuPageModule)
   }
 ];
 
