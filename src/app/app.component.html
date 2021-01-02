@@ -11,6 +11,7 @@
 
         <ion-content>
           <ion-list>
+            <!--- static way
             <ion-menu-toggle autoHide="false">
               <ion-item lines="none" routerLink="/places/tabs/discover">
                 <ion-label *ngIf="onlineChanges$ | async; else haha"> YES   </ion-label>
@@ -39,6 +40,18 @@
                 <ion-label>Testing Menu on Another Page</ion-label>
               </ion-item>
             </ion-menu-toggle>
+          -->
+          <!-- DYNAMIC WAY OF BUILDING MENU -->
+          <ion-menu-toggle autoHide="false" *ngFor="let mItem of menu">
+            <ion-item lines="none" routerLink={{mItem.link}}>
+              <ion-label *ngIf="onlineChanges$ | async; else haha"> YES   </ion-label>
+              <ng-template #haha>
+                <ion-label>NO</ion-label>
+              </ng-template>
+              <ion-icon name="business" slot="start"></ion-icon>
+              <ion-label>{{mItem.desc}}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
           </ion-list>
         </ion-content>
       </ion-menu>
