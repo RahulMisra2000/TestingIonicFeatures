@@ -44,7 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
         this.menu = ma;
       });
 
-    this.menuService.initializeMenu(m);
+    // Some extra coding for academic reasons
+    setTimeout(()=> this.menuService.initializeMenu(m), 9000);;
 
   }
 

@@ -9,7 +9,7 @@ import { Menu } from './menu.model';
 
 export class MenuService {
 
-  private _menuBS = new BehaviorSubject<Menu[]>(null);
+  private _menuBS = new BehaviorSubject<Menu[]>([new Menu('Dummy 1', '/bookings'), new Menu('Dummy 2', '/places/tabs/discover')]);
 
   constructor() { }
 
