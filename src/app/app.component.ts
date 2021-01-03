@@ -10,7 +10,8 @@ import { Network } from "@ngx-pwa/offline";
 import { Observable, Subscription } from "rxjs";
 import { MenuService } from "./menu.service";
 import { Menu } from "./menu.model";
-import { take } from "rxjs/operators";
+import { Storage} from "@ionic/storage";
+
 
 @Component({
   selector: "app-root",
@@ -24,15 +25,18 @@ export class AppComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private network: Network,
-    private menuService: MenuService
+    private menuService: MenuService,
+    private storage : Storage
   ) {
     this.initializeApp();
   }
   
-
+  
   onlineChanges$: Observable<boolean>;
   menu: Menu[] = null;
   sub1 : Subscription = null;
+
+  lastRunStamp : string = new Date().toString();
 
   ngOnInit(): void {
     this.onlineChanges$ = this.network.onlineChanges;
@@ -47,7 +51,19 @@ export class AppComponent implements OnInit, OnDestroy {
       });
 
     // Some extra coding for academic reasons
-    setTimeout(()=> this.menuService.initializeMenu(m), 9000);;
+    setTimeout(()=> this.menuService.initializeMenu(m), 9000);
+
+    this.storage.get("lastrun")
+    .then(data=>{
+      console.log("Data:",data);
+      if (data){
+        this.lastRunStamp = data;
+      }
+    })
+    .then(x=>{
+      this.storage.set("lastrun", new Date().toString());
+    })
+    .catch(err => console.log("Err:", err));
 
   }
 

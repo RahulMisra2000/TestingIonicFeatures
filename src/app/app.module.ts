@@ -10,17 +10,20 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, ServiceWorkerModule.register('ngsw-worker.js', 
-  { enabled: environment.production })],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
-  ],
+  imports: [BrowserModule, 
+            IonicStorageModule.forRoot({
+              name: '__RMdb',
+              driverOrder: ['sqlite', 'websql', 'indexeddb' ]
+            }), 
+            IonicModule.forRoot(), AppRoutingModule, 
+            ServiceWorkerModule.register('ngsw-worker.js',  { enabled: environment.production })
+           ],
+  providers: [ StatusBar, SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
