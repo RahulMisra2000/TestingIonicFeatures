@@ -1,0 +1,37 @@
+<ion-split-pane contentId="xx">
+  <ion-menu contentId="xx">
+    
+    <ion-header>
+      <ion-toolbar>
+
+        <ion-title>TwoPane</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <ion-list>
+        <ion-item  routerLink="/bookings" button></ion-item>
+      </ion-list>
+      <p>This will be shown in the left pane</p>
+
+    </ion-content>
+  </ion-menu>
+
+  <ion-content id="xx">
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Title2</ion-title>
+        <ion-buttons slot="start">
+          <ion-menu-toggle>
+            <ion-button>
+              <ion-icon name="menu" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-menu-toggle>
+          
+        </ion-buttons>
+       
+      </ion-toolbar>
+    </ion-header>
+    <p>This will be shown in the right pane</p>
+  </ion-content>
+</ion-split-pane>

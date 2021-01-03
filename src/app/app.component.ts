@@ -36,7 +36,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.onlineChanges$ = this.network.onlineChanges;
-    let m = [new Menu('Bookings', '/bookings'), new Menu('Discover', '/places/tabs/discover')];
+    let m = [ new Menu('Bookings', '/bookings'), 
+              new Menu('Discover', '/places/tabs/discover'),
+              new Menu('2-Pane', '/two-pane')];
 
 
     this.sub1 = this.menuService.menu$

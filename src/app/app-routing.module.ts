@@ -19,6 +19,10 @@ const routes: Routes = [
   {
     path: 'testing-menu',
     loadChildren: () => import('./testing-menu/testing-menu.module').then( m => m.TestingMenuPageModule)
+  },
+  {
+    path: 'two-pane',
+    loadChildren: () => import('./two-pane/two-pane.module').then( m => m.TwoPanePageModule)
   }
 ];
 
